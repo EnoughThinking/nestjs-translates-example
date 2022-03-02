@@ -3,9 +3,9 @@ name: Check code
 on:
   push:
     branches:
-      - 'master'
-      - 'develop'
-      - 'feature/**'
+      - "master"
+      - "develop"
+      - "feature/**"
     tags-ignore:
       - v*
 
@@ -20,8 +20,8 @@ jobs:
       - name: Setup Node.js 16.x to publish to npmjs.org
         uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
 
       - uses: actions/cache@v2
         with:
@@ -38,7 +38,7 @@ jobs:
         env:
           CI: true
 
-      - name: Test
+      - name: Run unit tests
         run: npm run test
         env:
           CI: true
@@ -48,6 +48,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-file: jest.result.json
+
+      - name: Run e2e tests
+        run: npm run test:e2e
+        env:
+          CI: true
 
       - uses: tanmen/jest-reporter@v1
         if: always()
