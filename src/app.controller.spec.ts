@@ -15,8 +15,8 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [
-        TranslatesModule.forRoot(
-          getDefaultTranslatesModuleOptions({
+        TranslatesModule.forRoot({
+          ...getDefaultTranslatesModuleOptions({
             localePaths: [
               join(process.cwd(), 'i18n'),
               join(
@@ -40,11 +40,14 @@ describe('AppController', () => {
                 new HttpException(errors, HttpStatus.BAD_REQUEST),
             },
           }),
-        ),
+          usePipes: false,
+        }),
       ],
       controllers: [AppController],
       providers: [AppService],
     }).compile();
+
+    app.init();
 
     appController = app.get<AppController>(AppController);
   });
