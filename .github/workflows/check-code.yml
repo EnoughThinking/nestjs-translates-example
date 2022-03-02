@@ -46,6 +46,7 @@ jobs:
       - uses: tanmen/jest-reporter@v1
         if: always()
         with:
+          action-name: Result of unit tests
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-file: jest.result.json
 
@@ -57,5 +58,6 @@ jobs:
       - uses: tanmen/jest-reporter@v1
         if: always()
         with:
+          action-name: Result of e2e tests
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-file: jest.e2e-result.json
